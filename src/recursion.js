@@ -99,8 +99,30 @@ var sumBelow = function(n) {
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
-  // base case ->
-  // recursive case ->
+  var aRange = [];
+  if ( x < y ) {
+    // base case -> difference between x and y is 1 or less
+    if ( (y - x) <= 1 ) {
+      return aRange;
+    }
+
+    // recursive case -> (x<y) -> array containing x+1...y-1
+    //  (2,9) > [3] (3,9) > [3,4] (4,9) > [3,4,5] (5,9) >
+    //  [3,4,5,6] (6,9) > [3,4,5,6,7] (7,9) > [3,4,5,6,7,8] (8,9) > done!
+    aRange.push(x+1);
+    aRange = aRange.concat(range(x+1,y));
+  } else if ( x > y ) {
+    // base case -> difference between x and y is 1 or less
+    if ( (x - y) <= 1 ) {
+      return aRange;
+    }
+
+    // recursive case -> (x>y) -> array containing x-1...y+1
+    aRange.push(x-1);
+    aRange = aRange.concat(range(x-1,y));
+  }
+
+  return aRange;
 };
 
 // 7. Compute the exponent of a number.
