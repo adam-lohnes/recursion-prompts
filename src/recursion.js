@@ -33,13 +33,35 @@ var sum = function(array) {
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
-  // base case ->
-  // recursive case ->
+  var sum = 0;
+
+  // error handling -> array is undefined
+  if ( array === undefined ) {
+    return 0;
+  }
+
+  // base case -> non-array integer
+  if ( typeof array === 'number' ) {
+    return array;
+  }
+  // recursive case -> add each item in array
+  //  [1,[2,3],[[4]],5] -> ( 1 + (2 + 3) + ((4)) + 5 )
+  //  1 + [[2,3],[[4]],5] ->
+  //  1 + (2, [3]),[[4]],5] ->
+  //  1 + (2 + (3)),[[4]],5] ->
+  //  1 + 2 + 3 + (4),[5] ->
+  //  1 + 2 + 3 + 4 + (5) ->
+  //  1 + 2 + 3 + 4 + 5
+  for ( var i = 0; i < array.length; i++ ) {
+    sum += arraySum(array[i]);
+  }
+
+  return sum;
 };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
-  // base case ->
+  // base case -> n less than 1 but not zero
   // recursive case ->
 };
 
