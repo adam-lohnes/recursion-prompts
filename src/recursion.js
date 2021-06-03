@@ -154,8 +154,16 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
-  // base case ->
-  // recursive case ->
+  // base case (true) -> n equals 1
+  if ( n === 1 ) {
+    return true;
+  }
+  // base case (false) -> n doesn't divide by 2 evenly OR is zero
+  if ( n === 0 || n % 2 !== 0 ) {
+    return false;
+  }
+  // recursive case -> n/2
+  return powerOfTwo( n / 2 );
 };
 
 // 9. Write a function that reverses a string.
