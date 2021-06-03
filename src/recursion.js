@@ -172,15 +172,24 @@ var reverse = function(string) {
   if ( string.length === 0 ) {
     return '';
   }
-  // recursive case -> take first letter
-  //  and put it at the end of the word
+  // recursive case -> take first letter and put it at the end of the word
   return reverse(string.slice(1)) + string[0];
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
-  // base case ->
-  // recursive case ->
+  string = string.toLowerCase().trim();
+  // base case (true) -> string is empty or only contains 1 letter
+  if ( string.length === 1 || string.length === 0 ) {
+    return true
+  }
+  // base case (false) -> first letter of string doesn't match the last letter
+  if ( string[0] !== string[string.length - 1] ) {
+    return false;
+  }
+  // recursive case -> remove the first and last letter
+  //  to check the next innermost letters
+  return palindrome(string.slice(string[0], string[string.length - 1]));
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
