@@ -197,9 +197,37 @@ var palindrome = function(string) {
 // modulo(5,2) // 1
 // modulo(17,5) // 2
 // modulo(22,6) // 4
+    // edge case -> y equals 0 (thou shall not divide by zero)
+    // base case (factors) -> absolute-x equals absolute-y
+    // base case (remainders) -> absolute-x < absolute-y
+    // recursive case -> x-y
 var modulo = function(x, y) {
-  // base case ->
-  // recursive case ->
+  if ( y === 0 ) {
+    return NaN;
+
+  }
+  if ( x - y === 0  || x + y === 0 ) {
+    return 0;
+  }
+
+  var absX = x.toString();
+  if ( absX[0] === '-' ) {
+    absX = absX.slice(1);
+  }
+  var absY = y.toString();
+  if ( absY[0] === '-' ) {
+    absY = absY.slice(1);
+  }
+
+  if ( parseInt(absX) < parseInt(absY) ) {
+    return x;
+  }
+
+  if ( (x > 0 && y > 0) || (x < 0 && y < 0) ) {
+    return modulo(x-y, y);
+  }
+
+  return modulo(x+y, y);
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
