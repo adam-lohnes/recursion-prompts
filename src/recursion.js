@@ -252,9 +252,37 @@ var multiply = function(x, y) {
 
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
+    // base case -> x is less than or equal to y
+    // recursive case -> x-y
 var divide = function(x, y) {
-  // base case ->
-  // recursive case ->
+  if ( y === 0 ) {
+    return NaN;
+  }
+
+  var absX = x.toString();
+  if ( absX[0] === '-' ) {
+    absX = absX.slice(1);
+  }
+  absX = parseInt(absX);
+
+  var absY = y.toString();
+  if ( absY[0] === '-' ) {
+    absY = absY.slice(1);
+  }
+  absY = parseInt(absY);
+
+  if ( absX === absY ) {
+    if ( x > 0 && y > 0 || x < 0 && y < 0 ) {
+      return 1;
+    }
+    return -1;
+  }
+
+  if ( x === 0 || absX < absY ) {
+    return 0;
+  }
+
+  return 1 + divide( x-y, y );
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
