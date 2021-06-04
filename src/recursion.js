@@ -232,9 +232,22 @@ var modulo = function(x, y) {
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
+    // base case -> y equals 0
+    // recursive case -> y-1
 var multiply = function(x, y) {
-  // base case ->
-  // recursive case ->
+  if ( y === 0 ) {
+    return 0;
+  }
+
+  if ( y > 0 ) {
+    return x + multiply(x, y-1);
+  }
+
+  if ( x > 0 ) {
+    return y + multiply(x-1, y);
+  }
+
+  return -x + multiply(x, y+1);
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
