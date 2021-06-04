@@ -291,8 +291,30 @@ var divide = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
-  // base case ->
-  // recursive case ->
+  // edge case -> x or y is negative
+  if ( x < 0 || y < 0  || x === 0 && y === 0) {
+    return null;
+  }
+  // base case -> x or y equals 0
+  if ( x === 0 || x === y ) {
+    return y;
+  }
+
+  if ( y === 0 ) {
+    return x;
+  }
+  // recursive case -> start with x or y - whichever is smaller - then
+  //  subtract 1 until a common divisor is returned
+  var higher, lower;
+  if ( x > y ) {
+    higher = x;
+    lower = y;
+  } else {
+    higher = y;
+    lower = x;
+  }
+
+  return gcd(lower, higher % lower);
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
