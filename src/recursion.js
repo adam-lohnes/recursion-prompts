@@ -642,12 +642,12 @@ var letterTally = function(str, obj) {
 // compress([1,2,2,3,4,4,5,5,5]) // [1,2,3,4,5]
 // compress([1,2,2,3,4,4,2,5,5,5,4,4]) // [1,2,3,4,2,5,4]
 var compress = function(list) {
-  var newArr = [];
   // base case -> list is empty
   if ( list.length === 0 ) {
     return [];
   }
   // check first item of list against second item, pull out into new array if not matching
+  var newArr = [];
   if ( list[0] !== list[1] ) {
     newArr.push(list[0]);
   }
@@ -659,8 +659,22 @@ var compress = function(list) {
 // itself.
 // augmentElements([[],[3],[7]], 5); // [[5],[3,5],[7,5]]
 var augmentElements = function(array, aug) {
-  // base case ->
-  // recursive case ->
+  // base case -> array is empty
+  if ( array.length === 1 ) {
+    array[0].push(aug);
+    return array;
+  }
+
+  // recursive case -> push aug to first nested array
+  var newArr = [];
+  array[0].push(aug);
+
+  newArr.push(array[0]);
+  var remaining = augmentElements(array.slice(1), aug);
+  newArr = newArr.concat(remaining);
+
+  return newArr;
+  // [5], [3,5], [7,5],
 };
 
 // 34. Reduce a series of zeroes to a single 0.
