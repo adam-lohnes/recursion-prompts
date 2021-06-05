@@ -714,8 +714,31 @@ var alternateSign = function(array) {
 // Assume all numbers are single digits (less than 10).
 // numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
 var numToText = function(str) {
-  // base case ->
-  // recursive case ->
+  // base case -> empty string
+  if ( str === '' ) {
+    return str;
+  }
+
+  var nums = {
+    '0': 'zero',
+    '1': 'one',
+    '2': 'two',
+    '3': 'three',
+    '4': 'four',
+    '5': 'five',
+    '6': 'six',
+    '7': 'seven',
+    '8': 'eight',
+    '9': 'nine'
+  };
+  // recursive case -> split string into array of words, then
+  //  check if first word can be turned into a number
+  var strArray = str.split(' ');
+
+  if ( nums[strArray[0]] ) {
+    return (nums[strArray[0]] + ' ' + numToText(strArray.slice(1).join(' '))).trim();
+  }
+  return (strArray[0] + ' ' + numToText(strArray.slice(1).join(' '))).trim();
 };
 
 
