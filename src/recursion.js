@@ -694,8 +694,20 @@ var minimizeZeroes = function(array) {
 // alternateSign([2,7,8,3,1,4]) // [2,-7,8,-3,1,-4]
 // alternateSign([-2,-7,8,3,-1,4]) // [2,-7,8,-3,1,-4]
 var alternateSign = function(array) {
-  // base case ->
-  // recursive case ->
+  // base case -> array only contains 1 boolean
+  if ( array.length === 1 ) {
+    return [];
+  }
+  // base (setup) case -> 1st in array is not a booloen
+  if ( typeof array[0] !== 'boolean' ) {
+    return alternateSign([true].concat(array));
+  }
+  // recursive case -> bool is false & 1st is positive... or true & negative
+  if ( array[0] === false && array[1] > 0 || array[0] === true && array[1] < 0 ) {
+      return [(array[1] * -1)].concat(alternateSign([!array[0]].concat(array.slice(2))));
+  }
+  // recursive case -> bool matches positive/negative
+  return [array[1]].concat(alternateSign([!array[0]].concat(array.slice(2))));
 };
 
 // 36. Given a string, return a string with digits converted to their word equivalent.
