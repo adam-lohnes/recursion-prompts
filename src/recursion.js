@@ -781,7 +781,6 @@ var binarySearch = function(array, target, min, max) {
   if ( max === undefined ) {
     max = array.length;
   }
-  var partOfArr = array.slice(min, max);
   var middleIdx = Math.floor( (max - min) / 2 ) + min;
   var middleNum = array[middleIdx];
   // base case -> middle number in array is the target
@@ -804,8 +803,39 @@ var binarySearch = function(array, target, min, max) {
 // mergeSort([34,7,23,32,5,62]) // [5,7,23,32,34,62]
 // https://www.khanacademy.org/computing/computer-science/algorithms/merge-sort/a/divide-and-conquer-algorithms
 var mergeSort = function(array) {
-  // base case ->
-  // recursive case ->
+  // base case -> array has 1 number
+  if ( array.length <= 1 ) {
+    return array;
+  }
+  // recursive case -> split array in half, then mergesort each
+  var middleIdx = Math.floor( array.length / 2 );
+  var arr1 = mergeSort(array.slice(0,middleIdx));
+  var arr2 = mergeSort(array.slice(middleIdx, array.length));
+  // return case -> populate new array that sorts the two sorted arrays together
+  var newArr = arr2.slice();
+  var newArrSortPoint = 0;
+  for ( var i = 0; i < arr1.length; i++ ) {
+    for ( var j = newArrSortPoint; j < newArr.length; j++ ) {
+      if ( arr1[i] < newArr[j] ) {
+        newArr.splice(j, 0, arr1[i]);
+        newArrSortPoint = j;
+        break;
+      }
+      if ( j === newArr.length - 1 ) {
+        newArr.push( arr1[i] );
+        newArrSortPoint = j + 1;
+        break;
+      }
+    }
+  }
+  return newArr;
+  //       [34,7,23,32,5,62]
+  //     [34,7,23] | [32,5,62]
+  //   [34] [7,23] | [32] [5,62]
+  // [34] [7] [23] | [32] [5] [62]
+  //   [34] [7,23] | [32] [5,62]
+  //     [7,23,34] | [5,32,62]
+  //        [5,7,23,32,34,62]
 };
 
 // 40. Deeply clone objects and arrays.
