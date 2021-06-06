@@ -770,8 +770,34 @@ var tagCount = function(tag, node) {
 // binarySearch(array, 5) // 5
 // https://www.khanacademy.org/computing/computer-science/algorithms/binary-search/a/binary-search
 var binarySearch = function(array, target, min, max) {
-  // base case ->
-  // recursive case ->
+  // edge case -> target outside of array
+  if ( target < array[0] || target > array[array.length - 1]) {
+    return null;
+  }
+  // setup -> set min and max to input array, if not defined
+  if ( min === undefined ) {
+    min = 0;
+  }
+  if ( max === undefined ) {
+    max = array.length;
+  }
+  var partOfArr = array.slice(min, max);
+  var middleIdx = Math.floor( (max - min) / 2 ) + min;
+  var middleNum = array[middleIdx];
+  // base case -> middle number in array is the target
+  if ( middleNum === target ) {
+    return middleIdx;
+  }
+  // base case -> array is empty or only has 1 element that is not the target
+  if ( max - min < 1 ) {
+    return null;
+  }
+  // recursive case -> check middle number in array against target
+    // if target is higher, check the second half of the list & vice versa
+  if ( target < middleNum ) {
+    return binarySearch(array, target, min, middleIdx-1);
+  }
+  return binarySearch(array, target, middleIdx+1, max);
 };
 
 // 39. Write a merge sort function.
