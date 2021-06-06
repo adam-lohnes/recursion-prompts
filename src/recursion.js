@@ -836,6 +836,7 @@ var mergeSort = function(array) {
   //   [34] [7,23] | [32] [5,62]
   //     [7,23,34] | [5,32,62]
   //        [5,7,23,32,34,62]
+  // "How Sauron Got Merge-Sorted Array Back"
 };
 
 // 40. Deeply clone objects and arrays.
@@ -844,6 +845,34 @@ var mergeSort = function(array) {
 // console.log(obj2); // {a:1,b:{bb:{bbb:2}},c:3}
 // obj1 === obj2 // false
 var clone = function(input) {
-  // base case ->
-  // recursive case ->
+  // base case -> input isn't an object
+  if ( typeof input !== 'object' ) {
+    return input;
+  }
+
+  // recursive case -> input is an array -> clone each item in array to new array
+  if ( Array.isArray(input) ) {
+    var newArr = [];
+
+    for ( var i = 0; i < input.length; i++ ) {
+      newArr.push(clone(input[i]));
+    }
+
+    return newArr;
+  }
+
+  // recursive case -> input is object -> clone each object to new object
+  var newObj = {};
+  var keys = Object.keys(input);
+
+  for ( var i = 0; i < keys.length; i++ ) {
+    newObj[keys[i]] = clone(input[keys[i]]);
+  }
+
+  return newObj;
+
+  // object1 = {a:1,b:{bb:{bbb:2}},c:3};
+  // object2 = {a:1,b:['bb',{bbb:[2]}],c:{cc:[3,{ccc:4},5]}};
+  // array1 = [1,[2,[]],3,[[[4]],5]];
+  // array2 = [1,[2,{a:[{},2,3]}],{3:[4]},5];
 };
